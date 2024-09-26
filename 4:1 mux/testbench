@@ -1,0 +1,50 @@
+module mux_tb();
+
+	// Inputs
+	reg a;
+	reg b;
+	reg c;
+	reg d;
+	reg [1:0] sel;
+
+	// Outputs
+	wire o;
+
+	// Instantiate the Unit Under Test (UUT)
+	mux uut (
+		.a(a), 
+		.b(b), 
+		.c(c), 
+		.d(d), 
+		.sel(sel), 
+		.o(o)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 0;
+		b = 0;
+		c = 0;
+		d = 0;
+		sel = 0;
+		#10;
+	 end
+		
+        
+		// Add stimulus here
+		initial
+			begin
+			   {a,b,c,d}=4'd5;
+				sel=2;
+				#20;
+				{a,b,c,d}=4'd8;
+				sel=0;
+				#20;
+				{a,b,c,d}=4'd4;
+				sel=1;
+				#100;
+			
+				 $finish;
+			end 
+endmodule
+
