@@ -1,0 +1,31 @@
+module fulladder_tb();
+
+	reg a;
+	reg b;
+	reg cin;
+  wire sum;
+	wire carry;
+
+	fulladder uut (
+		.a(a), 
+		.b(b), 
+		.cin(cin), 
+		.sum(sum), 
+		.carry(carry)
+	);
+
+	initial
+       begin
+	      	a   = 0;
+     		b   = 0;
+	     	cin = 0;
+		#10;
+		{a,b,cin}=3'b001;
+		#20;
+		{a,b,cin}=3'b101;
+		#20;
+		{a,b,cin}=3'b010;
+		#100;
+	end
+      
+endmodule
