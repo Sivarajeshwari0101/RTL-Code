@@ -1,13 +1,13 @@
-module fulladder(a,b,cin,sum,carry);
-input a,b,cin;
+module Fulladder(a,b,c,sum,carry);
+input a,b,c;
 output sum,carry;
-wire x1,x2,x3;
-halfadder adder1(.a(a),.b(b),.sum(x1),.carry(x2));
-halfadder adder2(.a(x1),.b(cin),.sum(sum),.carry(x3));
-or or1(carry,x2,x3);
+wire w1,w2,w3;
+half_adder adder1(.a(a),.b(b),.sum(w1),.carry(w2));
+half_adder adder2(.a(w1),.b(c),.sum(sum),.carry(w3));
+or or1(carry,w2,w3);
 endmodule
 
-module halfadder(a,b,sum,carry);
+module half_adder(a,b,sum,carry);
 input a,b;
 output sum,carry;
    assign sum=a^b;
