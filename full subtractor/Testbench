@@ -1,0 +1,30 @@
+module fullsub_tb();
+	reg a;
+	reg b;
+	reg cin;
+	wire difference;
+	wire borrow;
+	
+fullsub uut (
+		.a(a), 
+		.b(b), 
+		.cin(cin), 
+		.difference(difference), 
+		.borrow(borrow)
+	);
+
+	initial 
+          begin
+		   a = 0;
+		   b = 0;
+		   cin = 0;
+		   #10;
+		   {a,b,cin}=3'b001;
+		   #20;
+		   {a,b,cin}=3'b010;
+		    #20;
+	        {a,b,cin}=3'b101;
+		     #100;
+	  end
+      
+endmodule
