@@ -1,0 +1,15 @@
+module fullsub(a,b,cin,difference,borrow);
+input a,b,cin;
+output difference,borrow;
+wire x1,x2,x3;
+halfsub sub1(.a(a),.b(b),.difference(x1),.borrow(x2));
+halfsub sub2(.a(x1),.b(cin),.difference(difference),.borrow(x3));
+or or1(borrow,x2,x3);
+endmodule
+
+module halfsub(a,b,difference,borrow);
+input a,b;
+output difference,borrow;
+   assign difference=a^b;
+   assign borrow=~a&b;
+endmodule
