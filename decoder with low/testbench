@@ -1,0 +1,29 @@
+module dec_low_tb();
+    reg en;
+    reg [1:0] d;
+    wire [3:0] y;
+    integer i;
+
+    dec_low uut(
+        .en(en),
+        .d(d),
+        .y(y)
+    );
+
+    initial 
+	 begin
+        en = 0;
+        d = 0;
+     end
+
+    initial 
+	   begin
+	   en=0;
+          for (i = 0; i < 16; i = i + 1) begin
+            d = i;
+            #10; 
+       end
+        #10; 
+        $finish;
+    end
+endmodule
