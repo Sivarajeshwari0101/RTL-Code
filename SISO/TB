@@ -1,0 +1,54 @@
+module SISO_tb();
+	reg s,rst,clk;
+	wire q;
+	
+	SISO S1(.s(s),.rst(rst),.clk(clk),.q(q));
+	
+	initial
+	begin
+		$monitor($time,"s=%b,rst=%b,q=%b",s,q,rst);
+	end
+	
+	initial
+	begin
+		clk=1'b1;
+		forever #5 clk=~clk;
+	end
+	
+	task initialize;
+	begin
+		s=0;
+		rst=0;	
+	end
+	endtask
+	
+	task reset;
+	begin 
+		@(negedge clk)
+			rst=1;
+		@(negedge clk)
+			rst=0;
+	end
+	endtask
+	
+	task inputs;
+	input d;
+	begin 
+		@(negedge clk)
+			s=d;
+	end
+	endtask
+	
+	initial
+	begin
+		initialize;
+		reset;
+		inputs(1);
+		inputs(1);
+		inputs(0);
+		inputs(1);
+		inputs(0);
+		inputs(1);
+		#50 $finish;
+	end 
+	endmodule
