@@ -1,0 +1,22 @@
+module prienc_tb();
+	reg [7:0] i;
+	wire [2:0] h;
+	integer k;
+	prienc uut (
+		.i(i), 
+		.h(h)
+	);
+
+	initial begin
+	  i=0;
+	  #20;
+   end
+   initial begin
+       for(k=0;k<16;k=k+1)
+		   begin
+			  i=k;
+			  #20;
+		 end
+		 #50 $finish;
+		 end
+endmodule
