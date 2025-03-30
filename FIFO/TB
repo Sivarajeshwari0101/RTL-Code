@@ -1,0 +1,68 @@
+module FIFO_tb();
+    reg clk, rst, we, re;
+    wire empty, full;
+    reg [7:0] data;
+    wire [7:0] out;
+
+    FIFO dut (
+        .data(data),
+        .out(out),
+        .clk(clk),
+        .rst(rst),
+        .we(we),
+        .re(re),
+        .empty(empty),
+        .full(full)
+    );
+
+    initial begin
+        clk = 1'b0;
+        forever #5 clk = ~clk;
+    end
+	 
+	 task initialise;
+	 begin
+	    rst=1'b0;
+		 we=1'b0;
+		 re=1'b0;
+		 data=8'b0;
+	 end
+	 endtask
+
+    task reset;
+        begin
+            @(negedge clk)
+            rst = 1'b1;
+            @(negedge clk)
+            rst = 1'b0;
+        end
+    endtask
+
+    task write(input [7:0] in);
+        begin
+            @(negedge clk)
+            we = 1'b1;
+            data = in;
+        end
+    endtask
+
+    task read;
+        begin
+            @(negedge clk)
+            re = 1'b1;
+        end
+    endtask
+
+    initial 
+	 begin
+	     initialise;
+        reset;
+        repeat (17) 
+            write({$random} % 42);
+        we = 1'b0;
+		  repeat (17)
+            read;
+        re = 1'b0;
+        #50 $finish; 
+    end
+endmodule
