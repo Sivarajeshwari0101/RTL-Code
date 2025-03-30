@@ -1,0 +1,18 @@
+module SISO(s,rst,clk,q);
+input s,rst,clk;
+output reg q;
+reg [3:0] temp;
+always@(posedge clk)
+begin
+	if(rst)
+	   begin
+		  q <= 0;
+		  temp <= 4'b0;
+		end
+	else 
+		begin
+			temp <= {s,temp[3:1]};
+			q <= temp[0];
+		end
+	end
+endmodule
